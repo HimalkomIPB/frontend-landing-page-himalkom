@@ -7,7 +7,8 @@ const MobileMenu = ({ onCloseMenu }) => {
   // State untuk expand/collapse submenu
   const [expandedSections, setExpandedSections] = useState({
     profile: false,
-    community: false
+    community: false,
+    informasi: false
   });
 
   const [animateItems, setAnimateItems] = useState(false);
@@ -152,33 +153,64 @@ const MobileMenu = ({ onCloseMenu }) => {
             </div>
           )}
         </div>
+        
+        {/* Informasi */}
+        <div className="px-2 py-1 border-b border-gray-100">
+          <button 
+            className="flex items-center justify-between w-full py-2 px-3 rounded-md text-left text-primary-darker hover:bg-primary-light/50 transition"
+            onClick={() => toggleSection('informasi')}
+          >
+            <span>Informasi</span>
+            <svg 
+              className={`w-4 h-4 transition-transform ${expandedSections.informas ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          {expandedSections.informasi && (
+            <div className="pl-3 my-1 border-l-2 border-primary ml-3">
+              <NavLink 
+                to="/komnews"
+                className={({isActive}) => menuItemClass(isActive)}
+                onClick={onCloseMenu}
+                style={{ transitionDelay: '200ms' }}
+              >
+                Komnews
+              </NavLink>
+              <NavLink 
+                to="/Galeri"
+                className={({isActive}) => menuItemClass(isActive)}
+                onClick={onCloseMenu}
+                style={{ transitionDelay: '200ms' }}
+              >
+                Galeri
+              </NavLink>
+              <NavLink 
+                to="/Jawara"
+                className={({isActive}) => menuItemClass(isActive)}
+                onClick={onCloseMenu}
+                style={{ transitionDelay: '200ms' }}
+              >
+                Jawara
+              </NavLink>
+              <NavLink 
+                to="/Prestasi"
+                className={({isActive}) => menuItemClass(isActive)}
+                onClick={onCloseMenu}
+                style={{ transitionDelay: '200ms' }}
+              >
+                Prestasi
+              </NavLink>
+            </div>
+          )}
+        </div> 
 
         {/* Other Menu Items */}
         <div className="px-2 py-1">
-          <NavLink 
-            to="/komnews" 
-            className={({isActive}) => menuItemClass(isActive)}
-            onClick={onCloseMenu}
-          >
-            Komnews
-          </NavLink>
-          
-          <NavLink 
-            to="/galeri" 
-            className={({isActive}) => menuItemClass(isActive)}
-            onClick={onCloseMenu}
-          >
-            Galeri
-          </NavLink>
-          
-          <NavLink 
-            to="/jawara" 
-            className={({isActive}) => menuItemClass(isActive)}
-            onClick={onCloseMenu}
-          >
-            Jawara
-          </NavLink>
-          
           <NavLink 
             to="/megaproker" 
             className={({isActive}) => menuItemClass(isActive)}
