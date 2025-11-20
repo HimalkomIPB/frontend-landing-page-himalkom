@@ -21,7 +21,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const lastPage = paginationRange[paginationRange.length - 1];
 
   return (
-   <ul className=" flex items-center justify-center gap-1 md:gap-2 mt-8  bg-primary text-white rounded-full p-1.5 md:p-2
+   <ul className=" inline-flex items-center justify-center gap-1 md:gap-2 mt-8  bg-primary text-white rounded-full p-1.5 md:p-2
          transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg 
     ">
       
