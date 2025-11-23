@@ -21,15 +21,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const lastPage = paginationRange[paginationRange.length - 1];
 
   return (
-   <ul className=" inline-flex items-center justify-center gap-1 md:gap-2 mt-8  bg-primary text-white rounded-full p-1.5 md:p-2
+    <ul className="inline-flex items-center justify-center gap-1 md:gap-2 mt-8  bg-primary text-white rounded-full p-1.5 md:p-2
          transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg 
     ">
-      
+
       {/* Tombol Previous */}
       <button
         type="button"
         onClick={onPrevious}
         disabled={currentPage === 1}
+        aria-label="Previous page"
         className={`flex items-center justify-center rounded-full  w-8 h-8 md:w-auto md:py-5 md:px-5 text-sm md:text-base transition-colors duration-150
        bg-white text-primary-dark hover:bg-gray-100 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed font-semibold text-[18px]
       `}
@@ -54,9 +55,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             onClick={() => onPageChange(pageNumber)}
             className={`flex items-center justify-center rounded-full w-8 h-8 md:w-10 md:h-10  text-sm md:text-base transition-colors duration-150
               ${pageNumber === currentPage
-                ? 'bg-white text-primary-dark font-semibold text-[18px]' 
-                : 'bg-transparent text-white hover:bg-white/20' 
+                ? 'bg-white text-primary-dark font-semibold text-[18px]'
+                : 'bg-transparent text-white hover:bg-white/20'
               }`}
+            aria-label={`Go to page ${pageNumber}`}
+            {...(pageNumber === currentPage ? { 'aria-current': 'page' } : {})}
           >
             {pageNumber}
           </button>

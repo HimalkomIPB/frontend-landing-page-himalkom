@@ -204,7 +204,7 @@ const NavMenu = () => {
       {/* Informasi */}
       <div className="relative" ref={informasiRef}>
         <button
-          className="text-primary-darker font-medium transition-all hover:text-primary-dark cursor-pointer "
+          className="text-primary-darker font-medium transition-all hover:text-primary-dark cursor-pointer"
           onClick={() => setIsInformasiOpen(!isInformasiOpen)}
         >
           Informasi

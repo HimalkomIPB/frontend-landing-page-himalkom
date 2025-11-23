@@ -162,7 +162,7 @@ const MobileMenu = ({ onCloseMenu }) => {
           >
             <span>Informasi</span>
             <svg 
-              className={`w-4 h-4 transition-transform ${expandedSections.informas ? 'rotate-180' : ''}`} 
+              className={`w-4 h-4 transition-transform ${expandedSections.informasi ? 'rotate-180' : ''}`} 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -182,7 +182,7 @@ const MobileMenu = ({ onCloseMenu }) => {
                 Komnews
               </NavLink>
               <NavLink 
-                to="/Galeri"
+                to="/galeri"
                 className={({isActive}) => menuItemClass(isActive)}
                 onClick={onCloseMenu}
                 style={{ transitionDelay: '200ms' }}

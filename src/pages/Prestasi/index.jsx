@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Hero from "./section/Hero";
 import PrestasiFilter from "./section/PrestasiFilter";
 import PrestasiList from "./section/PrestasiList";
@@ -19,34 +19,37 @@ const Prestasi = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const fetchPrestasi = async (page = 1) => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams();
-      params.set("page", page);
-      params.set("per_page", ITEMS_PER_PAGE);
-
-      if (activeCategory !== "all") params.set("kategori", activeCategory);
-      if (activeYear !== "all") params.set("tahun", String(activeYear));
-
-      const res = await fetch(`${baseUrl}/prestasi?${params.toString()}`);
-      const json = await res.json();
-
-      setPrestasi(json.prestasi || []);
-      setCategories(json.all_kategori || []);
-      setYears(json.all_years || []);
-      setTotalPages(json.pagination?.last_page || 1);
-      setCurrentPage(json.pagination?.current_page || 1);
-
-    } catch (err) {
-      console.error(err);
-    }
-    setLoading(false);
-  };
-
+  const fetchPrestasi = useCallback(
+    async (page = 1) => {
+      setLoading(true);
+      try {
+        const params = new URLSearchParams();
+        params.set("page", page);
+        params.set("per_page", ITEMS_PER_PAGE);
+  
+        if (activeCategory !== "all") params.set("kategori", activeCategory);
+        if (activeYear !== "all") params.set("tahun", String(activeYear));
+  
+        const res = await fetch(`${baseUrl}/prestasi?${params.toString()}`);
+        const json = await res.json();
+  
+        setPrestasi(json.prestasi || []);
+        setCategories(json.all_kategori || []);
+        setYears(json.all_years || []);
+        setTotalPages(json.pagination?.last_page || 1);
+        setCurrentPage(json.pagination?.current_page || 1);
+      } catch (err) {
+        console.error(err);
+        setError("Gagal memuat data prestasi. Silakan coba lagi.");
+      }
+      setLoading(false);
+    },
+    [activeCategory, activeYear, baseUrl]
+  );
+  
   useEffect(() => {
     fetchPrestasi(1);
-  }, []);
+  }, [fetchPrestasi]);
 
   useEffect(() => {
     if (activeCategory !== "all" || activeYear !== "all") {

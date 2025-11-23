@@ -18,7 +18,6 @@ const PrestasiDetail = () => {
   const {
     data: allPrestasiData,
     loading: loadingAll,
-    error: errorAll,
   } = useFetchData("prestasi", baseUrl);
 
   useEffect(() => {

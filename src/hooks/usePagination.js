@@ -41,7 +41,6 @@ export const usePagination = ({
       return [firstPageIndex, '...', ...rightRange];
     }
 
-i
     if (showLeftDots && showRightDots) {
       const middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, '...', ...middleRange, '...', lastPageIndex];
