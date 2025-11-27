@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useFetchData } from "@/hooks/useAPI";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import MotionReveal from "@/components/common/MotionReveal";
-
+import Pagination from "@/components/common/Pagination";
 // Sections
 import HeroSection from "./section/Hero";
 import HeadlineSection from "./section/Headline";
@@ -16,26 +16,27 @@ import NewsListSection from "./section/NewsList";
 const Komnews = () => {
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const [activeCategory, setActiveCategory] = useState("all");
-
+  const [currentPage, setCurrentPage] = useState(1);
   // Fetch news data
   const {
     data: newsData,
     loading: loadingNews,
     error: errorNews,
-  } = useFetchData("komnews", baseUrl);
+  } = useFetchData(`komnews?page=${currentPage}${activeCategory !== "all" ? `&category=${activeCategory}` : ""}`, baseUrl);
+  
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory]);
 
-  // Filter news by category
-  const filteredNews = useMemo(() => {
-    if (!newsData?.komnews) return [];
-
-    if (activeCategory === "all") {
-      return newsData.komnews;
-    }
-
-    return newsData.komnews.filter((news) =>
-      news.categories.some((category) => category.slug === activeCategory)
-    );
-  }, [newsData, activeCategory]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]); 
+  
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  
+  const paginationBackend = newsData?.pagination;
 
   return (
     <div className="w-full">
@@ -74,13 +75,25 @@ const Komnews = () => {
       {/* News List Section - now below headline, as grid */}
       <section className="mb-64 max-w-6xl mx-auto px-4">
         {!loadingNews && !errorNews && newsData && (
-          <NewsListSection
-            news={filteredNews}
-            categories={newsData?.categories || []}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-            baseUrl={baseUrl}
-          />
+          <>
+            <NewsListSection
+              news={newsData?.komnews || []}
+              categories={newsData?.categories || []}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              baseUrl={baseUrl}
+            />
+
+            {paginationBackend && (
+              <div className="mt-12 flex justify-center">
+                <Pagination
+                  currentPage={paginationBackend.current_page}
+                  totalPages={paginationBackend.last_page}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </>
         )}
       </section>
     </div>
