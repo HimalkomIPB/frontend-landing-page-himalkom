@@ -39,7 +39,7 @@ const App = () => {
           <Route path="/galeri" element={<Galeri />} />
           <Route path="/galeri/:id" element={<GalleryDetail />} />
           <Route path="/jawara" element={<Jawara />} />
-          <Route path="/prestasi" element={<Prestasi />}/>
+          <Route path="/prestasi" element={<Prestasi />} />
           <Route path="/prestasi/:id" element={<DetailPrestasi />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

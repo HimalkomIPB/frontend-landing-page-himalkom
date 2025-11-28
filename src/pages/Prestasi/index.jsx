@@ -64,7 +64,9 @@ const Prestasi = () => {
 
   return (
     <>
-      <Hero />
+      <section className="mt-12 md:mt-20">
+        <Hero />
+      </section>
 
       <section className="mt-24 max-w-6xl mx-auto px-4 pb-24">
         {loading ? (

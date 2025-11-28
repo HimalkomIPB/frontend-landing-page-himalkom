@@ -31,7 +31,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         onClick={onPrevious}
         disabled={currentPage === 1}
         aria-label="Previous page"
-        className={`flex items-center justify-center rounded-full  w-8 h-8 md:w-auto md:py-5 md:px-5 text-sm md:text-base transition-colors duration-150
+        className={`flex items-center justify-center rounded-full w-8 h-8 md:w-auto md:py-5 md:px-5 text-sm md:text-base transition-colors duration-150
        bg-white text-primary-dark hover:bg-gray-100 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed font-semibold text-[18px]
       `}
       >

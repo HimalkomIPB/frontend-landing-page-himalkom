@@ -40,13 +40,13 @@ const PrestasiDetail = () => {
   const otherPrestasi =
     allPrestasiData?.prestasi?.filter((p) => p.id !== prestasi.id) || [];
 
-    const sanitizeHtml = (html) => {
-      if (!html) return '';
-      return DOMPurify.sanitize(html, {
-          ALLOWED_TAGS: ['p', 'b', 'i', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-              'img', 'figure', 'figcaption', 'span'],
-          ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'style', 'width', 'height', 'title'],
-      });
+  const sanitizeHtml = (html) => {
+    if (!html) return '';
+    return DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: ['p', 'b', 'i', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'img', 'figure', 'figcaption', 'span'],
+      ALLOWED_ATTR: ['href', 'src', 'alt', 'class', 'style', 'width', 'height', 'title'],
+    });
   };
 
   return (

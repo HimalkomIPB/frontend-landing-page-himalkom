@@ -25,9 +25,8 @@ const PrestasiFilter = ({
     <div className="flex flex-wrap gap-2 mb-6">
       <div
         onClick={() => setActiveCategory("all")}
-        className={`px-3 py-1 shadow-card bg-white rounded-md cursor-pointer ${
-          activeCategory === "all" ? "bg-primary-dark text-white" : ""
-        }`}
+        className={`px-3 py-1 shadow-card bg-white rounded-md cursor-pointer ${activeCategory === "all" ? "bg-primary-dark text-white" : ""
+          }`}
       >
         All Category
       </div>
@@ -36,9 +35,8 @@ const PrestasiFilter = ({
         <div
           key={item.id}
           onClick={() => setActiveCategory(item.name)}
-          className={`px-3 py-1 shadow-card bg-white rounded-md cursor-pointer ${
-            activeCategory === item.name ? "bg-primary-dark text-white" : ""
-          }`}
+          className={`px-3 py-1 shadow-card bg-white rounded-md cursor-pointer ${activeCategory === item.name ? "bg-primary-dark text-white" : ""
+            }`}
         >
           {item.name}
         </div>
@@ -64,30 +62,30 @@ const PrestasiFilter = ({
 
         {yearDropdownOpen && (
           <div className="absolute left-0 mt-2 w-40 bg-white border border-primary/30 rounded-lg shadow-lg z-20 p-2 max-h-60 overflow-y-auto">
-            <div
+            <button
+              type="button"
               onClick={() => {
                 setActiveYear("all");
                 setYearDropdownOpen(false);
               }}
-              className={`px-3 py-2 rounded-md cursor-pointer hover:bg-primary-light ${
-                activeYear === "all" ? "font-semibold text-primary-dark" : ""
-              }`}
+              className={`w-full text-left px-3 py-2 rounded-md cursor-pointer hover:bg-primary-light ${activeYear === "all" ? "font-semibold text-primary-dark" : ""
+                }`}
             >
               All Years
-            </div>
+            </button>
             {years.map((year) => (
-              <div
+              <button
+                type="button"
                 key={year}
                 onClick={() => {
                   setActiveYear(String(year));
                   setYearDropdownOpen(false);
                 }}
-                className={`px-3 py-2 rounded-md cursor-pointer hover:bg-primary-light ${
-                  activeYear === String(year) ? "font-semibold text-primary-dark" : ""
-                }`}
+                className={`w-full text-left px-3 py-2 rounded-md cursor-pointer hover:bg-primary-light ${activeYear === String(year) ? "font-semibold text-primary-dark" : ""
+                  }`}
               >
                 {year}
-              </div>
+              </button>
             ))}
           </div>
         )}
