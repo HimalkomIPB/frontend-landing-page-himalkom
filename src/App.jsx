@@ -16,6 +16,8 @@ import Megaproker from './pages/Megaproker';
 import NotFound from './pages/NotFound';
 import Riset from './pages/Riset';
 import Syntax from './pages/Syntax';
+import Prestasi from './pages/Prestasi'
+import DetailPrestasi from './pages/Prestasi/Detail/Detail';
 
 const App = () => {
   return (
@@ -37,6 +39,8 @@ const App = () => {
           <Route path="/galeri" element={<Galeri />} />
           <Route path="/galeri/:id" element={<GalleryDetail />} />
           <Route path="/jawara" element={<Jawara />} />
+          <Route path="/prestasi" element={<Prestasi />} />
+          <Route path="/prestasi/:id" element={<DetailPrestasi />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </MainLayout>
