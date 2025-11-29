@@ -8,6 +8,7 @@ import { useFetchData } from "../../hooks/useAPI";
 const NavMenu = () => {
   // Data untuk dropdown
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isInformasiOpen, setIsInformasiOpen] = useState(false);
   const [isDepartmentOpen, setIsDepartmentOpen] = useState(false);
   const [isCommunityOpen, setIsCommunityOpen] = useState(false);
 
@@ -34,12 +35,14 @@ const NavMenu = () => {
 
   // Refs untuk deteksi klik di luar dropdown
   const profileRef = useRef(null);
+  const informasiRef = useRef(null);
   const departmentRef = useRef(null);
   const communityRef = useRef(null);
 
   // Tutup dropdown
   const closeDropdowns = () => {
     setIsProfileOpen(false);
+    setIsInformasiOpen(false);
     setIsDepartmentOpen(false);
     setIsCommunityOpen(false);
   };
@@ -62,18 +65,19 @@ const NavMenu = () => {
       ) {
         setIsCommunityOpen(false);
       }
+      if (informasiRef.current && !informasiRef.current.contains(event.target)) {
+        setIsInformasiOpen(false);
+      }
     };
-
-    if (isProfileOpen || isDepartmentOpen || isCommunityOpen) {
+    if (isProfileOpen || isDepartmentOpen || isCommunityOpen || isInformasiOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isProfileOpen, isDepartmentOpen, isCommunityOpen]);
+  }, [isProfileOpen, isDepartmentOpen, isCommunityOpen, isInformasiOpen]);
 
   return (
     <nav className="flex items-center gap-14 font-athiti text-lg">
@@ -93,7 +97,7 @@ const NavMenu = () => {
       {/* Item Menu: Profil (Dropdown) */}
       <div className="relative" ref={profileRef}>
         <button
-          className="text-primary-darker font-medium transition-all hover:text-primary-dark"
+          className="text-primary-darker font-medium transition-all hover:text-primary-dark cursor-pointer"
           onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
           Profil
@@ -123,9 +127,8 @@ const NavMenu = () => {
               >
                 <span>Departemen</span>
                 <svg
-                  className={`w-4 h-4 transition-transform duration-300 ${
-                    isDepartmentOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-4 h-4 transition-transform duration-300 ${isDepartmentOpen ? "rotate-180" : ""
+                    }`}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -169,7 +172,7 @@ const NavMenu = () => {
       {/* Item Menu: Komunitas (Dropdown) */}
       <div className="relative" ref={communityRef}>
         <button
-          className="text-primary-darker font-medium transition-all hover:text-primary-dark"
+          className="text-primary-darker font-medium transition-all hover:text-primary-dark cursor-pointer"
           onClick={() => setIsCommunityOpen(!isCommunityOpen)}
         >
           Komunitas
@@ -198,44 +201,63 @@ const NavMenu = () => {
         )}
       </div>
 
-      {/* Item Menu: Komnews */}
-      <NavLink
-        to="/komnews"
-        className={({ isActive }) => `
-          text-primary-darker transition-all duration-200
-          hover:text-primary-dark 
-          ${isActive ? "font-bold" : "font-medium"}
-        `}
-        onClick={closeDropdowns}
-      >
-        Komnews
-      </NavLink>
+      {/* Informasi */}
+      <div className="relative" ref={informasiRef}>
+        <button
+          className="text-primary-darker font-medium transition-all hover:text-primary-dark cursor-pointer"
+          onClick={() => setIsInformasiOpen(!isInformasiOpen)}
+        >
+          Informasi
+        </button>
 
-      {/* Item Menu: Galeri */}
-      <NavLink
-        to="/galeri"
-        className={({ isActive }) => `
-          text-primary-darker transition-all duration-200
-          hover:text-primary-dark 
-          ${isActive ? "font-bold" : "font-medium"}
+        {isInformasiOpen && (
+          <div className="absolute mt-2 w-64 bg-white border border-primary rounded-md shadow-card z-40 py-2">
+            <NavLink
+              to="/komnews"
+              className={({ isActive }) => `
+          block px-4 py-2 text-primary-darker hover:bg-primary-light transition-all
+          ${isActive ? "font-bold" : "font-normal"}
         `}
-        onClick={closeDropdowns}
-      >
-        Galeri
-      </NavLink>
+              onClick={closeDropdowns}
+            >
+              Komnews
+            </NavLink>
 
-      {/* Item Menu: Jawara */}
-      <NavLink
-        to="/jawara"
-        className={({ isActive }) => `
-          text-primary-darker transition-all duration-200
-          hover:text-primary-dark 
-          ${isActive ? "font-bold" : "font-medium"}
+            <NavLink
+              to="/galeri"
+              className={({ isActive }) => `
+          block px-4 py-2 text-primary-darker hover:bg-primary-light transition-all
+          ${isActive ? "font-bold" : "font-normal"}
         `}
-        onClick={closeDropdowns}
-      >
-        Jawara
-      </NavLink>
+              onClick={closeDropdowns}
+            >
+              Galeri
+            </NavLink>
+
+            <NavLink
+              to="/jawara"
+              className={({ isActive }) => `
+          block px-4 py-2 text-primary-darker hover:bg-primary-light transition-all
+          ${isActive ? "font-bold" : "font-normal"}
+        `}
+              onClick={closeDropdowns}
+            >
+              Jawara
+            </NavLink>
+
+            <NavLink
+              to="/prestasi"
+              className={({ isActive }) => `
+          block px-4 py-2 text-primary-darker hover:bg-primary-light transition-all
+          ${isActive ? "font-bold" : "font-normal"}
+        `}
+              onClick={closeDropdowns}
+            >
+              Prestasi
+            </NavLink>
+          </div>
+        )}
+      </div>
 
       {/* Item Menu: Megaproker */}
       <NavLink
